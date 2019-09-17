@@ -1,0 +1,57 @@
+{% extends 'webshop/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static "accounts/account_styles.css" %}">
+    <style media="screen">
+        .default-theme {
+            max-width: 30vw;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'accounts:login' %}">Logg inn</a></li>
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h1>Du er allerede logget inn</h1>
+    {% else %}
+        <div class="default-theme">
+
+            <h1>Logg inn:</h1>
+
+            <form class="container" method="post">
+                {% csrf_token %}
+                <div class="text-danger">
+                    {{ form.non_field_errors }}
+                </div>
+                {% for field in form %}
+                    <div class="form-group"> <!-- Bootstrap -->
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button class="btn btn-primary" type="submit">Logg inn</button>
+            </form>
+
+        </div>
+        <br>
+        <a href="{% url 'accounts:signup' %}">Har du ingen bruker? Registrer deg her!</a>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block scriptblock %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+        })
+    </script>
+{% endblock %}
