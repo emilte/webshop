@@ -19,16 +19,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-try:
-    from .secret_key import SECRET_KEY
-except:
-    SECRET_KEY = "NOT SET"
-    print("SECRET_KEY was not set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
-LOCAL_SETTINGS = True
 
 ALLOWED_HOSTS = []
 
@@ -39,15 +32,15 @@ LOGOUT_REDIRECT_URL = ''
 AUTH_USER_MODEL = "accounts.User"
 
 # # Production settings:
-# SECURE_HSTS_SECONDS = 60 # TODO: Find a decent value
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# SECURE_HSTS_PRELOAD = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# CSRF_COOKIE_SECURE = True
-# X_FRAME_OPTIONS = "DENY"
+SECURE_HSTS_SECONDS = 60 # TODO: Find a decent value
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = "DENY"
 
 # Application definition
 
@@ -143,9 +136,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 
-if LOCAL_SETTINGS:
-    try:
-        from .local_settings import *
-    except Exception as e:
-        print(e)
-        print("local_settings was not imported")
+try:
+    from .local_settings import *
+except Exception as e:
+    print(e)
+    print("local_settings was not imported")
